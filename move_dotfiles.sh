@@ -4,7 +4,7 @@
 cd ~
 
 # List of files you don't want to symlink
-declare -a exclude=(".DS_Store" ".Trash" ... ) # Add other files or directories to exclude
+declare -a exclude=(".DS_Store" ".Trash" "") # Add other files or directories to exclude
 
 # Loop through dotfiles in the home directory
 for file in .*; do
