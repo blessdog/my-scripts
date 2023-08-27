@@ -3,8 +3,13 @@
 # Change to home directory
 cd ~
 
-# List of files you don't want to symlink
-declare -a exclude=(".DS_Store" ".Trash" "") # Add other files or directories to exclude
+# List of dotfiles you don't want to symlink
+declare -a exclude=(
+    ".DS_Store" ".Trash" ".CFUserTextEncoding" ".local" ".matplotlib" ".mongodb" 
+    ".mysqlsh" ".node_repl_history" ".npm" ".npmrc" ".p10k-8color.zsh.zwc" 
+    ".p10k.zsh.zwc" ".pgadmin" ".psql_history" ".python_history" ".quokka" 
+    ".rest-client" ".vscode" ".vscode-cli" ".wallaby" ".yarnrc" ".zcompdump-icemac pro-5.8" ".zprofile.bak"
+) # Add other dotfiles or directories to exclude
 
 # Loop through dotfiles in the home directory
 for file in .*; do
