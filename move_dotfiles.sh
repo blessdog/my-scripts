@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # List of dotfiles you want to move and symlink
-declare -a dotfiles=(".bashrc" ".vimrc" ".gitconfig" ".zshrc" ... )  # Add other files as needed
+declare -a dotfiles=(".bashrc" ".vimrc" ".gitconfig" ".zshrc" )  # Add other files as needed
 
 # Loop through the dotfiles
 for file in "${dotfiles[@]}"; do
