@@ -1,25 +1,28 @@
 #!/bin/bash
 
-# List of dotfiles you want to move and symlink
-declare -a dotfiles=(".bashrc" ".vimrc" ".gitconfig" ".zshrc" )  # Add other files as needed
+# Change to home directory
+cd ~
 
-# Loop through the dotfiles
-for file in "${dotfiles[@]}"; do
-    # Check if the file exists in the home directory
-    if [ -f ~/$file ]; then
-        # If the corresponding directory in ~/.config doesn't exist, create it
-        target_dir=~/.config/${file:1}  # Remove the dot from the file name for the target directory
-        mkdir -p $target_dir
-        
-        # Move the file to ~/.config
-        mv ~/$file $target_dir/
+# List of files you don't want to symlink
+declare -a exclude=(".DS_Store" ".Trash" ... ) # Add other files or directories to exclude
 
-        # Create a symbolic link back to the home directory
-        ln -s $target_dir/$file ~/$file
-
-        echo "$file moved and symlinked."
-    else
-        echo "$file doesn't exist in the home directory. Skipping..."
+# Loop through dotfiles in the home directory
+for file in .*; do
+    # Check if the file is in the exclude list
+    if [[ ! " ${exclude[@]} " =~ " ${file} " ]] && [ -f "$file" ]; then
+        # Check if the file exists in ~/.config
+        if [ -f ~/.config/$file ]; then
+            # Check if a symlink or the file already exists in the home directory
+            if [ -e ~/$file ] || [ -L ~/$file ]; then
+                echo "~/$file already exists. Skipping..."
+            else
+                # Create a symbolic link
+                ln -s ~/.config/$file ~/$file
+                echo "Symbolic link created for $file"
+            fi
+        else
+            echo "~/.config/$file does not exist. Skipping..."
+        fi
     fi
 done
 
